@@ -114,7 +114,7 @@ void timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_
         }
     }
 
-    printf("Executed in %ld using %s sort\n", end - start, sorting_mode); 
+    printf("Executed in %ld seconds using %s sort\n", end - start, sorting_mode); 
 }
 
 int main(void) 
