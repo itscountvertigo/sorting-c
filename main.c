@@ -82,7 +82,11 @@ void quick_sort(int *input_array, int idx_start, int idx_end)
 
 void timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_array)
 {
-    int array[num_of_values];
+    //int array[num_of_values];
+
+    int *array;
+    array = (int*) malloc(num_of_values * sizeof (int));
+
     randomize_array(array, num_of_values, max_value); 
 
     time_t start = time(NULL); // record time before sorting
@@ -115,9 +119,9 @@ void timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_
 
 int main(void) 
 {
+    timed_sort("quick",       10000000, 10000, 0);
     //timed_sort("bubble",    100000, 10000, 0);
     //timed_sort("insertion", 100000, 10000, 0);
-    timed_sort("quick",       900000, 10000, 0);
  
     return 0;
 }
