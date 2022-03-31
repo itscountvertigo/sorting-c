@@ -80,16 +80,22 @@ void quick_sort(int *input_array, int idx_start, int idx_end)
     quick_sort(input_array, pivot_idx + 1, idx_end);
 }
 
-void timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_array)
-{
-    //int array[num_of_values];
+long long time_in_milliseconds(void) {
+    struct timeval tv;
 
+    gettimeofday(&tv, NULL);
+    return (((long long) tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
+}
+
+int timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_array)
+{
     int *array;
     array = (int*) malloc(num_of_values * sizeof (int));
 
     randomize_array(array, num_of_values, max_value); 
 
-    time_t start = time(NULL); // record time before sorting
+    // record start time
+    long long start = time_in_milliseconds();
 
     if (sorting_mode == "bubble")
     {
@@ -104,7 +110,8 @@ void timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_
         quick_sort(array, 0, num_of_values);
     } 
 
-    time_t end = time(NULL); // record time again
+    // record end time
+    long long end = time_in_milliseconds();
 
     if (print_array == 1)
     {
@@ -114,14 +121,38 @@ void timed_sort(char *sorting_mode, int num_of_values, int max_value, int print_
         }
     }
 
-    printf("Executed in %ld seconds using %s sort\n", end - start, sorting_mode); 
+    free(array);
+
+    //printf("Sorted array of %ld items in %ld ms using %s sort\n", num_of_values, end - start, sorting_mode);
+    return end - start;
 }
 
 int main(void) 
 {
-    timed_sort("quick",       10000000, 10000, 0);
-    //timed_sort("bubble",    100000, 10000, 0);
-    //timed_sort("insertion", 100000, 10000, 0);
+    //timed_sort("insertion", 1000000, 1000000, 0);
+    //timed_sort("quick",     1000000, 1000000, 0);
+    //timed_sort("bubble",    100000, 1000000, 0);
+    //timed_sort("insertion", 100000, 1000000, 0);
  
+    FILE *fp;
+    fp = fopen("data/run_1.txt", "w");
+
+    if (fp == NULL)
+    {
+        printf("File can't be opened! \n");
+        exit(1);
+    }
+
+    for (int i = 0; i <= 10000000; i += 1000)
+    {
+        int time = timed_sort("quick", i, 1000000, 0);
+        fprintf(fp, "%d %d\n", i, time);
+        printf("%d %d\n", i, time);
+    }
+
+    fclose(fp);
+
+    printf("success!");
+
     return 0;
 }
