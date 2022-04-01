@@ -1,8 +1,8 @@
 # Sorting alorithms in C
-These are some sorting algorithms I've originally written in C#, translated to C to compare speeds. The algorithms in C# can be found in this repository:
+These are sorting algorithms in C and C#. They're written to repeatedly sort a list of different sizes, which can be plotted.
 
-https://github.com/itscountvertigo/sorting-csharp
+The file parse_data.py handles the visualisation with matplotlib.
 
 ## Fibonacci examples
 
-In the /fibonacci_examples folder you can find two scripts with C and C++ code that generate Fibonacci numbers. These are to explain the syntax in my report.
+In the /fibonacci_examples folder you can find two scripts with C and C++ code that generate Fibonacci numbers. These are to explain C / C++ syntax in my report.
